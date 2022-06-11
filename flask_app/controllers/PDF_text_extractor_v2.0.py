@@ -45,12 +45,15 @@ with pdfplumber.open("D:/Development/2.Software-Development Projects/Data Scienc
             
     print(page_texts[1])
 
-
+# ALL THINGS REGEX
+# '[A-Za-z0-9\s!@#$%^&*()_+=-`~\\\]\[{}|';:/.,?><]'
 
 # FINAL REGEX
  # DATES 
  # '[A-Za-z]{3}\s\d{1,2}\s'
-#  AMOUNT
-# '\$\(\d{1,3}(?:,\d{3})*\.\d{2}\)|\$\d{1,3}(?:,\d{3})*\.\d{2} '
+#  AMOUNT AND SIGNS(+ AND -)
+# '(\s[-+]?\s)(\$*\d{1,3}(?:,\d{3})*\.\d{2})'
+# DESCRIPTION
+
  
         
