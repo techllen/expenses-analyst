@@ -1,8 +1,23 @@
-/* Resets */
-*{
-    margin: 0px;
-    padding: 0px;
-    font-size: 100%;
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-size: 100%;
+    color: #ffffff;
+  }
+
+body{
+    background-color:#153d77 ;
 }
 
+.container-fluid{
+    /* width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+form{
+    width: 600px;
+}

@@ -7,7 +7,7 @@ bcrypt = Bcrypt(app)
 # this route redirect users to the index/home page
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("registration.html")
 # this route handles user registration
 @app.route("/register", methods = ["POST"])
 def register():
