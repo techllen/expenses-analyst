@@ -36,7 +36,7 @@ def view_transactions():
 
 # this route redirect users to the upload statement page
 @app.route("/expenses_analyst/upload_statement")
-def upload_statement():
+def upload_statement_page():
     return render_template("upload_statement.html")
 
 
@@ -62,7 +62,8 @@ def register():
         user_id = user.User.register_user(data)
         # assigning session to the user
         session["user_id"] = user_id
-    return redirect("/page4")
+        # redirecting the user to the yearly analysisi page
+    return redirect("/expenses_analyst/dashboards/yearly_analysis")
 
     
 # this route handles user login
@@ -83,7 +84,8 @@ def login():
         return redirect("/")
     #assigning session to the user
     session["user_id"] = found_user.id
-    return redirect("/page4")
+    # redirecting the user to the yearly analysisi page
+    return redirect("/expenses_analyst/dashboards/yearly_analysis")
 
 @app.route("/page4")
 def page4():

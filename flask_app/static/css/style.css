@@ -48,7 +48,7 @@ main{
     margin-left: -25px;
 }
 
-#lets_do_it_btn,#log-in-link-button,#lets-go-btn,#sign_up-link-button,#log-out-button,#analyze-btn,#save-changes-btn{
+#lets_do_it_btn,#log-in-link-button,#lets-go-btn,#sign_up-link-button,#log-out-button,#analyze-btn,#save-changes-btn,#upload-button{
     padding: 7px;
     background-color:#42BE9B ;
     border: 2px Solid #FFFFFF;

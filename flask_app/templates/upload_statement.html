@@ -34,8 +34,9 @@
                         <i class="bi bi-upload"  id="upload-icon"></i>
                     </div>
                     <div >
-                        <form action="#" id="file-input-wrapper">
-                            <input type="file">
+                        <form action="/upload" method="POST" id="file-input-wrapper" enctype=multipart/form-data>
+                            <input type="file" name="file">
+                            <button type="submit" id="upload-button" value="upload">Upload</button>
                         </form>
                     </div>
                 </div>

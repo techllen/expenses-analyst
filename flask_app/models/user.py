@@ -3,7 +3,7 @@ import re
 from flask import flash
 class User:
     # initializing database name variable
-    database_name = "private_wall_db"
+    database_name = "expense_analyst_db"
 
     def __init__(self,data):
         self.id = data["id"]
