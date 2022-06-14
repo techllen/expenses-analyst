@@ -11,13 +11,131 @@ body{
     background-color:#153d77 ;
 }
 
-.container-fluid{
-    /* width: 1200px;
-    display: flex;
-    align-items: center;
-    justify-content: center; */
-}
-
 form{
     width: 600px;
+}
+
+
+#humburger-menu{
+    font-size: 30px;
+}
+
+#humburger{
+    margin: 22px 0px 0px -20px;
+}
+
+#log-out-div{
+    margin-top: -20px;
+}
+
+#year{
+    margin-top: 10px;
+}
+
+#analyze-btn{
+    margin-left: -160px;
+}
+
+main{
+    margin-left: 20px;
+}
+
+#content{
+    margin-left: 30px;
+}
+
+#greeting-desc-selection,#selection{
+    margin-left: -25px;
+}
+
+#lets_do_it_btn,#log-in-link-button,#lets-go-btn,#sign_up-link-button,#log-out-button,#analyze-btn,#save-changes-btn{
+    padding: 7px;
+    background-color:#42BE9B ;
+    border: 2px Solid #FFFFFF;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.side-bar-content{
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+#years,#months,#category{
+    background-color: #153d77;
+}
+
+#year-mnpg{
+    margin-right: 100px;
+
+}
+
+#month-mnpg{
+    margin-left: -150px;
+}
+
+#money-in,#money-out,#money-graph,#money-out-brkdwn-doughnut,#money-out-brkdwn-bar,#weather{
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#money-in .row p,#money-out .row p
+{
+    color:#153d77;
+}
+
+#location,#temperature,#weather-description,#day{
+    color:#153d77;
+}
+
+#total{
+    font-size: 150%;
+}
+
+#calendar{
+    height: 200px;
+}
+
+#weather{
+    background-color: #FFFFFF;
+    height: 140px;
+    width: 355px;
+    margin: -30px 0px 0px 0px;
+}
+
+#day{
+    display: flex;
+    justify-content: center;
+}
+
+#loc-temp-descr{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#money-out-brkdwn-bar{
+    margin-left: -10px;
+}
+
+.doughnut-chart{
+    position: relative;
+    height:15vh;
+    width: 41vh;
+}
+
+#transaction-table td{
+    color: #ffffff;
+}
+
+
+#upload-icon{
+    font-size: 70px;
+}
+
+#upload-icon-wrapper,#file-input-wrapper{
+    display: flex;
+    justify-content: center;
 }

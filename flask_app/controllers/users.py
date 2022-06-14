@@ -8,6 +8,38 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 def home():
     return render_template("registration.html")
+
+# this route redirect users to the login
+@app.route("/expenses_analyst/login")
+def to_login_page():
+    return render_template("login.html")
+
+# this route redirect users to the yearly analysis page
+@app.route("/expenses_analyst/dashboards/yearly_analysis")
+def yearly_analysis():
+    return render_template("dashboard_yearly_analysis.html")
+
+# this route redirect users to the monthly analysis page
+@app.route("/expenses_analyst/dashboards/monthly_analysis")
+def monthly_analysis():
+    return render_template("dashboard_monthly_analysis.html")
+
+# this route redirect users to the edit categories page
+@app.route("/expenses_analyst/edit_categories")
+def edit_categories():
+    return render_template("dashboard_edit_categories.html")
+
+# this route redirect users to the view transactions page
+@app.route("/expenses_analyst/view_transactions")
+def view_transactions():
+    return render_template("dashboard_view_transactions.html")
+
+# this route redirect users to the upload statement page
+@app.route("/expenses_analyst/upload_statement")
+def upload_statement():
+    return render_template("upload_statement.html")
+
+
 # this route handles user registration
 @app.route("/register", methods = ["POST"])
 def register():

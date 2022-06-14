@@ -10,58 +10,91 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="logo"></div>
-            <a href="./login.html">Already have an account?login</a>
-        </div>
-        <div class="row">
-            <form action="/register" method="POST">
-                {% with messages = get_flashed_messages(category_filter=["register-error"]) %}    
-                    {% if messages %}                            
-                        {% for message in messages %}            
-                            <p>{{message}}</p> 
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                <div class="mb-4 row">
-                    <div class="col-sm-6">
+        <nav>
+            <div class="row">
+                    <ul class="nav nav-fill">
+                        <li class="nav-item">
+                          <a class="nav-link" href="/">
+                            <div id="logo" class="mt-2">
+                                <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="/expenses_analyst/login"><button id="log-in-link-button" class="mt-5">Already have an account? login</button></a>
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+        <main>
+            <div class="row mt-5">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <form action="/register" method="POST">
+                        {% with messages = get_flashed_messages(category_filter=["register-error"]) %}    
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                    <p>{{message}}</p> 
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <div class="mb-4 row">
-                            <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="first_name" name="first_name">
-                            </div>                        
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-4 row">
-                            <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="last_name" name="last_name">
+                            <div class="col-sm-6">
+                                <div class="mb-4 row">
+                                    <label for="first_name" class="col-sm-4 col-form-label">First Name</label>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6">
+                                      <input type="text" class="form-control" id="first_name" name="first_name">
+                                    </div>                        
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-4 row">
+                                    <label for="last_name" class="col-sm-4 col-form-label">Last Name</label>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6">
+                                      <input type="text" class="form-control" id="last_name" name="last_name">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="mb-4 row">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                              <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                         </div>
+                         <div class="mb-4 row">
+                            <label for="password" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                              <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                        </div>
+                          <div class="mb-4 row">
+                            <label for="confirmed_password" class="col-sm-3 col-form-label"> Confirm Password</label>
+                            <div class="col-sm-9">
+                              <input type="password" class="form-control" id="confirmed_password" name="confirmed_password">
+                            </div>
+                        </div>
+                        <div class="mb-4 row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <button id="lets_do_it_btn" type="submit">Let's do it</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-4 row">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                 </div>
-                 <div class="mb-4 row">
-                    <label for="password" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                </div>
-                  <div class="mb-4 row">
-                    <label for="confirmed_password" class="col-sm-2 col-form-label"> Confirm Password</label>
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" id="confirmed_password" name="confirmed_password">
-                    </div>
-                </div>
-                <button class="lets_do_it_btn" type="submit">Let's do it</button>
-            </form>
-        </div>
+                <div class="col-sm-4"></div>
+            </div>
+            <div class="test">
+                <a href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a>
+                <a href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a>
+                <a href="/expenses_analyst/edit_categories">Edit Categories</a>
+                <a href="/expenses_analyst/view_transactions">View Transactions</a>
+                <a href="/expenses_analyst/upload_statement">Upload Statement</a>
+
+
+            </div>
+        </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts.js') }}"></script>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
+</head>
+<body>
+    <div class="container-fluid row">
+        <div class="col-sm-2" id="side-navigation">
+            <nav>
+                <div class="side-bar-brand col-12" id="hide-this">
+                    <div id="logo" class="mt-2">
+                        <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                    </div>
+                </div>
+                <div class="side-bar-content col-12 mt-3" id="hide-this">
+                    <ul class="nav col-12">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dashboards</a>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Monthly Analysis</a></li>
+                            <li><a class="dropdown-item" href="#">Yearly Analysis</a></li>
+                          </ul>
+                        </li>
+                        <li class="nav-item col-12">
+                          <a class="nav-link" href="#">Upload Statement</a>
+                        </li>
+                        <li class="nav-item col-12">
+                          <a class="nav-link" href="#">Edit Categories</a>
+                        </li>
+                        <li class="nav-item col-12">
+                            <a class="nav-link" href="#">View Transactions</a>
+                          </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-sm-10">
+            <main>
+                <div class="row">
+                    <!-- <ul class="nav nav-fill col-12 " id="navigation">
+                        <li class="nav-item" id="humburger">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#hide-this">
+                                <i class="bi bi-list" id="humburger-menu"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="logout-link">
+                          <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                        </li>
+                    </ul> -->
+                        <div class="d-flex flex-row bd-highlight col-sm-6 " id="humburger">
+                            <div class="p-2 bd-highlight">
+                                <i class="bi bi-list" id="humburger-menu"></i>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse bd-highlight col-sm-6" id="log-out-div">
+                            <div class="p-2 bd-highlight">
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                            </div>
+                        </div>
+                </div>
+                <div id="content">
+                    <div class="row " id="greeting-desc-selection">
+                        <div class="col-sm-7 greeting-descr">
+                            <div class="row">
+                                <div class="row"> 
+                                    <h3>Hello {name}</h3>
+                                </div>
+                                <div class="row">
+                                    <p>{Current Year} Analytics Overview</p>
+                                </div>
+                            </div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="col-sm-5 selection">
+                            <div class="row">
+                                <div class="col-sm-6 " id="year">
+                                    <label for="years">Select Year</label>
+                                    <select name="years" id="years">
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 "><a href="#"><button id="analyze-btn">Analyze</button></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row money-moneygraph-calendar-weather">
+                        <div class="col-sm-3 money">
+                            <div class="row" id="money-in">
+                                <div class="row"><p>Total Money In</p></div>
+                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                            </div>
+                            <div class="row mt-5" id="money-out">
+                                <div class="row"><p>Total Money Out</p></div>
+                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <canvas id="money-graph"></canvas>
+                        </div>
+                        <div class="col-sm-3 calendar-weather">
+                            <div class="row" id="calendar">
+                                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%233F51B5&ctz=America%2FNew_York&showTitle=0&showNav=1&showPrint=0&showTabs=0&showTz=0&showCalendars=0&src=ZW4udHojaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%230B8043&color=%230B8043" style="border-width:0" width="200" height="150" frameborder="0" scrolling="no"></iframe>
+                            </div>
+                            <div class="row " id="weather">
+                                <div class="col-6" id="day-icon">
+                                    <div class="row" id="day">Today</div>
+                                    <div class="row"><img src="" alt="weather Icon" id="weather-icon"></div>
+                                </div>
+                                <div class="col-6" id="loc-temp-descr">
+                                    <div class="row" id="location">Whitsett ,NC</div>
+                                    <div class="row" ><p id="temperature"></p></div>
+                                    <div class="row" ><p id="weather-description"></p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row money-out-brkdwn-bar-doughnut mt-5">
+                        <div class="col-sm-6 bar-chart mt-2">
+                            <canvas id="money-out-brkdwn-bar"></canvas>
+                        </div>
+                        <div class="col-sm-6 doughnut-chart mt-2 ">
+                            <div id="doughnut-back">
+                                <canvas id="money-out-brkdwn-doughnut"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Transactions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
+</head>
+<body>
+    <div class="container-fluid row">
+        <div class="col-sm-2" id="side-navigation">
+            <nav>
+                <div class="side-bar-brand col-12" id="hide-this">
+                    <div id="logo" class="mt-2">
+                        <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                    </div>
+                </div>
+                <div class="side-bar-content col-12 mt-3" id="hide-this">
+                    <ul class="nav col-12">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dashboards</a>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Monthly Analysis</a></li>
+                            <li><a class="dropdown-item" href="#">Yearly Analysis</a></li>
+                          </ul>
+                        </li>
+                        <li class="nav-item col-12">
+                          <a class="nav-link" href="#">Upload Statement</a>
+                        </li>
+                        <li class="nav-item col-12">
+                          <a class="nav-link" href="#">Edit Categories</a>
+                        </li>
+                        <li class="nav-item col-12">
+                            <a class="nav-link" href="#">View Transactions</a>
+                          </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-sm-10">
+            <main>
+                <div class="row">
+                        <div class="d-flex flex-row bd-highlight col-sm-6 " id="humburger">
+                            <div class="p-2 bd-highlight">
+                                <i class="bi bi-list" id="humburger-menu"></i>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse bd-highlight col-sm-6" id="log-out-div">
+                            <div class="p-2 bd-highlight">
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                            </div>
+                        </div>
+                </div>
+                <div id="content">
+                    <div class="row " id="selection">
+                            <div class="row selection">
+                                <div class="col-sm-4 mt-1">
+                                    <label for="months">Select month</label>
+                                    <select name="months" id="months">
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 mt-1" >
+                                    <label for="years">Select Year</label>
+                                    <select name="years" id="years">
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div>
+                            </div>
+                            <div id="transaction-table">
+                                <div class="row main-table">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th >Date</th>
+                                                <th >Description</th>
+                                                <th >Amount</th>
+                                                <th >Category</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                                <td>06-01-2022</td>
+                                                <td>Aldi</td>
+                                                <td>90</td>
+                                                <td>Grocery</td>
+                                            </tr>
+                                            <tr>
+                                            <tr>
+                                                <td>06-01-2022</td>
+                                                <td>Aldi</td>
+                                                <td>90</td>
+                                                <td>Grocery</td>
+                                            </tr>
+                                          </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts.js') }}"></script>
+</body>
+</html>
