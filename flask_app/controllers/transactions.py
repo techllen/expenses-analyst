@@ -22,25 +22,34 @@ def allowed_file(filename):
 # this route will receive uploaded bank statement from frontend
 @app.route("/upload", methods = ["POST"])
 def upload():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file uploaded')
-            return redirect("/expenses_analyst/dashboards/yearly_analysis")
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect("/expenses_analyst/dashboards/yearly_analysis")
-        # checking if a file part is present with the allowed extension
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            # saving the files
-            file.save(os.path.join(upload_folder, filename))
-            # parsing the PDF
-            pdf_parser(r"D:\Development\9.CODING_DOJO\6.Projects\expenses_analyst\project_repository\expenses-analyst\uploads\April_2022.pdf")
-    return redirect("/expenses_analyst/dashboards/yearly_analysis")
+     # check if user is logged in
+    if session.get("user_id")==None: 
+        return redirect("/")
+    else: 
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No file uploaded')
+                return redirect("/expenses_analyst/dashboards/yearly_analysis")
+            file = request.files['file']
+            # If the user does not select a file, the browser submits an
+            # empty file without a filename.
+            if file.filename == '':
+                flash('No selected file')
+                return redirect("/expenses_analyst/dashboards/yearly_analysis")
+            # checking if a file part is present with the allowed extension
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                # saving the files
+                file.save(os.path.join(upload_folder, filename))
+                # getting the path to the saved file
+                path = find_file_path()
+                # parsing the PDF
+                # print(str(path))
+                pdf_parser(path)
+                # delete all files after parsing
+                clear_directory()
+        return redirect("/expenses_analyst/dashboards/yearly_analysis")
 
 # this method parses pdf files
 def pdf_parser(pdf_file_path):
@@ -88,4 +97,34 @@ def pdf_parser(pdf_file_path):
                     # print("********DESCR="+ description)
                     # print("Month in numeric is" + str(Transaction.month_converter(date_re.search(line).group(0).strip())))
                     # 
+                    user_id = str(session.get("user_id"))
+                    transaction_data = {
+                        "month" : month,
+                        "year" : year,
+                        "description" : description,
+                        "amount" : amount,
+                        # run the categorizer method to get the category by passing the description
+                        "category" : transaction.Transaction.transaction_categorizer(description),
+                        "user_id" : user_id
+                    }
+                    # print(transaction_data)
+                    # print("********USER_ID IS: " + str(session.get("user_id")))
+                    # saving the transactions in the database
+                    transaction.Transaction.save_transaction(transaction_data)
+                    
+# this method searches for the file paths to parse
+def find_file_path():
+    # iterating through the upload files directory
+    for filename in os.listdir(upload_folder):
+        file_path = os.path.join(upload_folder,filename)
+        # print("######" + file_path)
+        if os.path.isfile(file_path):
+            # print("######" + file_path)
+            return file_path 
+        
+# this method clears everything in a directory
+def clear_directory():
+    # iterating through the upload files directory
+    for filename in os.listdir(upload_folder):
+        os.remove(os.path.join(upload_folder,filename))
 

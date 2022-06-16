@@ -38,7 +38,7 @@ class Transaction:
         # month_in_letters = month_re.search(string_month).group(0).strip()
         # initializing month dictionary with key value pairs
         months = {
-            "Jan" : "1 ",
+            "Jan" : "1",
             "Feb" : "2",
             "Mar" : "3",
             "Apr" : "4",
@@ -57,5 +57,30 @@ class Transaction:
             if string_month == month_key:
                 return month_numeric
             
+    # this method categorizes the transactions description
+    @staticmethod
+    def transaction_categorizer(transaction_description):
+        # transaction categories dictionary
+        category = {
+            "HEALTHEFTPYMT" : "Income ",
+            "ASSOCSPAYROLL" : "Icome",
+            "DISCOVERYPLUS" : "Entertainment ",
+            "SXCW" : "Fuel ",
+            "CAPITALONEMOBILEPMT" : "Credit Cards",
+            "Fuel" : "Fuel",
+            "ALDIBURLINGTONNCUS" : "Grocery", 
+            "DUKE" : "Electricity"    
+        }
+        
+        # iterating through the category dictionary to get respective categories for transactions
+        for category_keyword,category in category.items():
+            # searching for keywords in descriptions
+            if category_keyword in transaction_description:
+                return category
+            # return no value if no keyword has been configured yet
+            else:
+                return " "
+            
+        
 
 

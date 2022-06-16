@@ -172,3 +172,5 @@ cython_debug/
 
 config.js
 scripts.js
+
+uploads/*
