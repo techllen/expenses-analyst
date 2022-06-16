@@ -6,8 +6,9 @@ from flask_app.controllers import users
 import os
 from werkzeug.utils import secure_filename
 
-import pdfplumber
-import re
+import pdfplumber,re
+
+
 
 # configuring path to save the file
 upload_folder = r"D:\Development\9.CODING_DOJO\6.Projects\expenses_analyst\project_repository\expenses-analyst\uploads"
@@ -37,6 +38,7 @@ def upload():
             filename = secure_filename(file.filename)
             # saving the files
             file.save(os.path.join(upload_folder, filename))
+            # parsing the PDF
             pdf_parser(r"D:\Development\9.CODING_DOJO\6.Projects\expenses_analyst\project_repository\expenses-analyst\uploads\April_2022.pdf")
     return redirect("/expenses_analyst/dashboards/yearly_analysis")
 
@@ -48,20 +50,42 @@ def pdf_parser(pdf_file_path):
         maximum_number_of_pages = len(document)
         # this list will store the extracted texts
         page_texts = [ ]
-            # ITERATING THROUGH PAGES
+        # period regex
+        period_re = re.compile(r"([A-Za-z]{3})(\s\d{1,2}\s\-\s[A-Za-z]{3}\s\d{1,2}\,\s)(\d{4})")
+        #date regex
+        date_re = re.compile(r"[A-Za-z]{3}\s\d{1,2}\s")
+        #amount regex
+        amount_re = re.compile(r"(\s[-+]?\s)(\$*\d{1,3}(?:,\d{3})*\.\d{2}) ")   
+        # description regex
+        # description_re = re.compile(r"^(?!.*\d{3}).*")
+        #transaction regex including date and amount
+        transaction_re = re.compile(r"([A-Za-z]{3}\s\d{1,2}\s)|((\s[-+]?\s)(\$*\d{1,3}(?:,\d{3})*\.\d{2}) )")
+        # ITERATING THROUGH PAGES
         for page_number in range(0,maximum_number_of_pages):
-        # print(type(pdf.pages))
+            # print(type(pdf.pages))
             # storing all extracted texts in a list
             page_texts.append(document[page_number].extract_text()) 
-            #date regex
-            date_re = re.compile(r"[A-Za-z]{3}\s\d{1,2}\s")
-            #amount regex
-            amount_re = re.compile(r"(\s[-+]?\s)(\$*\d{1,3}(?:,\d{3})*\.\d{2}) ")   
-        # SEARCHING FOR THE PATTERN
-        for line in page_texts[page_number].split("\n"):
-             if date_re.search(line):
-                # print(line)
-                pass
-            
-        # print(page_texts[1])
+            # obtaining the period of the bank statement
+            period =  period_re.search(page_texts[0]).group(0).strip()
+            # extracting month and year from period and get its numeric value by calling the month converter
+            month = transaction.Transaction.month_converter(period_re.search(page_texts[0]).group(1).strip())
+            year =  period_re.search(page_texts[0]).group(3).strip()
+            # print(f"PERIOD FOR THIS BANK STATEMENT IS : {period}")
+            # print(f"MONTH FOR THIS BANK STATEMENT IS : {month}")
+            # print(f"YEAR FOR THIS BANK STATEMENT IS : {year}")
+
+            # SEARCHING FOR THE PATTERN
+            for line in page_texts[page_number].split("\n"):
+                if transaction_re.search(line) and amount_re.search(line):
+                    # print(line)
+                    # print("****DATE="+ transaction_re.search(line).group(1).strip())
+                    # print("****DATE="+ date_re.search(line).group(0).strip())
+                    # remove dollar sign,spece and comma and convert amount to float type
+                    amount = float((re.sub("\s\$","",amount_re.search(line).group(0).strip()).replace(",","")))
+                    # print("****AMOUNT="+ str(amount))
+                    # extracting description
+                    description=(re.sub("[^A-Za-z]","",line))[3:]
+                    # print("********DESCR="+ description)
+                    # print("Month in numeric is" + str(Transaction.month_converter(date_re.search(line).group(0).strip())))
+                    # 
 
