@@ -59,10 +59,10 @@
                         <div class="col-sm-7 greeting-descr">
                             <div class="row">
                                 <div class="row"> 
-                                    <h3>Hello {name}</h3>
+                                    <h3>Hello {{user_to_display.first_name}}</h3>
                                 </div>
                                 <div class="row">
-                                    <p>{Current Month} {Current Year} Analytics Overview</p>
+                                    <p>{{month}} {{year}} Analytics Overview</p>
                                 </div>
                             </div>
                             <div class="row"></div>
@@ -72,15 +72,17 @@
                                 <div class="col-sm-4 mt-1" id="month-mnpg">
                                     <label for="months">Select month</label>
                                     <select name="months" id="months">
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
+                                        {%for month_from_db in all_months_to_display%}
+                                            <option value="{{month_from_db.month}}">{{month_from_db.month}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                                 <div class="col-sm-4 mt-1" id="year-mnpg">
                                     <label for="years">Select Year</label>
                                     <select name="years" id="years">
-                                        <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
+                                        {%for year_from_db in all_years_to_display%}
+                                            <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                                 <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Analyze</button></a></div>

@@ -69,36 +69,39 @@
                         <div class="col-sm-7 greeting-descr">
                             <div class="row">
                                 <div class="row"> 
-                                    <h3>Hello {name}</h3>
+                                    <h3>Hello {{user_to_display.first_name}}</h3>
                                 </div>
                                 <div class="row">
-                                    <p>{Current Year} Analytics Overview</p>
+                                    <p>{{year}} Analytics Overview</p>
                                 </div>
                             </div>
                             <div class="row"></div>
                         </div>
                         <div class="col-sm-5 selection">
-                            <div class="row">
-                                <div class="col-sm-6 " id="year">
-                                    <label for="years">Select Year</label>
-                                    <select name="years" id="years">
-                                        <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
-                                    </select>
+                            <form action="/expenses-analyst/get_yearly_analysis" method="post">
+                                <div class="row">
+                                    <div class="col-sm-6 " id="year">
+                                        <label for="year">Select Year</label>
+                                        <select name="year" id="year">    
+                                            {%for year_from_db in all_years_to_display%}
+                                                <option value="{{year_from_db.year}}" name="year" id="year" >{{year_from_db.year}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 "><a href="#"><button type="submit" id="analyze-btn">Analyze</button></a></div>
                                 </div>
-                                <div class="col-sm-6 "><a href="#"><button id="analyze-btn">Analyze</button></a></div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row money-moneygraph-calendar-weather">
                         <div class="col-sm-3 money">
                             <div class="row" id="money-in">
                                 <div class="row"><p>Total Money In</p></div>
-                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                                <div class="row mb-3"><p id="total-income">{{total_income}}</p></div>
                             </div>
                             <div class="row mt-5" id="money-out">
                                 <div class="row"><p>Total Money Out</p></div>
-                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                                <div class="row mb-3"><p id="total-expenses">{{expenses}}</p></div>
                             </div>
                         </div>
                         <div class="col-sm-6">

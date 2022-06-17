@@ -1,5 +1,11 @@
 // console.log("CONNECTED TO JS")
 
+
+// get money in and money out values
+var moneyIn = parseFloat($("#total-income").text())
+// console.log(moneyIn)
+var moneyOut = parseFloat($("#total-expenses").text())
+
 // below code will plot a graph for money in - money out analysis
 const labels = [
     "Money In",
@@ -12,7 +18,7 @@ const labels = [
       label: "Money In/Money Out",
       backgroundColor: "#153d77",
       borderColor: 'rgb(255, 99, 132)',
-      data: [3000,-5000],
+      data: [moneyIn,moneyOut],
     }]
   };
 

@@ -60,15 +60,17 @@
                                 <div class="col-sm-4 mt-1">
                                     <label for="months">Select month</label>
                                     <select name="months" id="months">
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
+                                        {%for month_from_db in all_months_to_display%}
+                                            <option value="{{month_from_db.month}}">{{month_from_db.month}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                                 <div class="col-sm-4 mt-1" >
                                     <label for="years">Select Year</label>
                                     <select name="years" id="years">
-                                        <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
+                                        {%for year_from_db in all_years_to_display%}
+                                            <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
+                                        {%endfor%}
                                     </select>
                                 </div>
                                 <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div>
@@ -78,26 +80,23 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th >Date</th>
+                                                <th >Month</th>
+                                                <th >Year</th>
                                                 <th >Description</th>
                                                 <th >Amount</th>
                                                 <th >Category</th>
                                             </tr>
                                           </thead>
-                                          <tbody>
+                                          <tbody> 
+                                            {%for transaction in transactions_from_db %}
                                             <tr>
-                                                <td>06-01-2022</td>
-                                                <td>Aldi</td>
-                                                <td>90</td>
-                                                <td>Grocery</td>
+                                                <td>{{transaction.month}}</td>
+                                                <td>{{transaction.year}}</td>
+                                                <td>{{transaction.description}}</td>
+                                                <td>{{transaction.amount}}</td>
+                                                <td>{{transaction.category}}</td>
                                             </tr>
-                                            <tr>
-                                            <tr>
-                                                <td>06-01-2022</td>
-                                                <td>Aldi</td>
-                                                <td>90</td>
-                                                <td>Grocery</td>
-                                            </tr>
+                                            {%endfor%}
                                           </tbody>
                                     </table>
                                 </div>

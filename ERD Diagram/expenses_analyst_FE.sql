@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `expense_analyst_DB`.`transactions` (
   `amount` DECIMAL(10,2) NULL,
   `category` VARCHAR(40) NULL,
   `user_id` INT NOT NULL,
-  `created_at` VARCHAR(255) NULL,
-  `updated_at` VARCHAR(255) NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_transactions_users_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_transactions_users`
