@@ -66,8 +66,8 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-4 mt-1" >
-                                    <label for="years">Select Year</label>
-                                    <select name="years" id="years">
+                                    <label for="year">Select Year</label>
+                                    <select name="year" id="year">
                                         {%for year_from_db in all_years_to_display%}
                                             <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
                                         {%endfor%}

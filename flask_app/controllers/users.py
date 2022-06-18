@@ -166,7 +166,7 @@ def get_yearly_analysis():
         # year dictionary for selection
         year_data_expenses = {
             "amount" : 0,
-            "year" : year
+            "year" : request.form["year"]
         }
         
         # retrieve expenses from the database

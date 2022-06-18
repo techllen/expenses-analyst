@@ -146,8 +146,21 @@ class Transaction:
             for year_expense_from_db in yearly_expenses_from_db:
                 # print(year_expense_from_db["amount"])
                 total_expenses += year_expense_from_db["amount"]
-            print("####total is:" + str(total_expenses))
+            # print("####total is:" + str(total_expenses))
             return total_expenses
+    
+    #this method gets all categories and their total values from the database 
+    @classmethod
+    def get_all_categories_and_their_total_in_a_year(data):
+        query = "SELECT category, SUM(amount) AS category_total FROM transactions WHERE year = %(year)s GROUP BY category " 
+        category_and_their_total_from_db = connectToMySQL(Transaction.database_name).query_db(query,data)
+        if category_and_their_total_from_db == False:
+            return None
+        else:
+            for category_and_total in category_and_their_total_from_db:
+                
+
+    
                     
     # this method converts months from string to numerical values for storing in the database
     @staticmethod
