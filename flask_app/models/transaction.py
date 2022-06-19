@@ -49,6 +49,36 @@ class Transaction:
             # returning list of transaction objects
         return transactions_list
     
+    # this retrieves all transactions and insert categories into the transactions
+    @classmethod
+    def insert_categories_to_transactions(cls):
+        query = "SELECT * FROM transactions" 
+        # query = "SELECT * FROM transactions WHERE month = 11 AND year = 2021" 
+        transactions_from_db = connectToMySQL(Transaction.database_name).query_db(query)
+        # transactions_list = [ ]
+        # checking if we found any transaction
+        if transactions_from_db == False:
+            return None
+        else:
+            # turning car results to objects
+            for transaction in transactions_from_db:
+                print("description from database" + transaction["description"])
+                # o be used to update the transaction category
+                transaction_data = {
+                    "id" : transaction["id"],
+                    "category" : Transaction.transaction_categorizer(transaction["description"])
+                }
+                # update Query
+                query = "UPDATE transactions SET category = %(category)s WHERE id = %(id)s" 
+                connectToMySQL(Transaction.database_name).query_db(query, transaction_data)
+
+                # # create a transaction object
+                # this_transaction = cls(transaction)
+                # # appending the objects to the list
+                # transactions_list.append(this_transaction)
+            # returning list of transaction objects
+        # return transactions_list
+    
      # this retrieves transactions in between months
     @classmethod
     def get_transactions_from_to(cls,data):
@@ -158,6 +188,7 @@ class Transaction:
             return None
         else:
             for category_and_total in category_and_their_total_from_db:
+                pass
                 
 
     
@@ -193,27 +224,82 @@ class Transaction:
     # this method categorizes the transactions description
     @staticmethod
     def transaction_categorizer(transaction_description):
+        
+        # spliting transaction description
+        description_words = transaction_description.split()
+        category_word = ""
+        
         # transaction categories dictionary
+        # category = {
+        #     "HEALTHEFTPYMT" : "Income ",
+        #     "ASSOCSPAYROLL" : "Icome",
+        #     "DISCOVERYPLUS" : "Entertainment ",
+        #     "SXCW" : "Fuel ",
+        #     "CAPITALONEMOBILEPMT" : "Credit Cards",
+        #     "Fuel" : "Fuel",
+        #     "ALDIBURLINGTONNCUS" : "Grocery", 
+        #     "DUKE" : "Electricity"    
+        # }
+        
         category = {
-            "HEALTHEFTPYMT" : "Income ",
-            "ASSOCSPAYROLL" : "Icome",
-            "DISCOVERYPLUS" : "Entertainment ",
+            "EFT" : "Income",
+            "PAYROLL" : "Income",
+            "HORIZONS" : "Income",
+            "DISCOVERY" : "Entertainment",
             "SXCW" : "Fuel ",
-            "CAPITALONEMOBILEPMT" : "Credit Cards",
             "Fuel" : "Fuel",
-            "ALDIBURLINGTONNCUS" : "Grocery", 
-            "DUKE" : "Electricity"    
+            "BP" : "Fuel",
+            "PMT" : "Credit Cards",
+            "ALDI" : "Grocery", 
+            "SUPER" : "Grocery" ,
+            "DUKEENERGY" : "Electricity",
+            "GEICO" : "Insurance",
+            "SPECTRUM" : "Internet",
+            # "Debit" : "Miscellaneous",
+            "PCS" : "Mobile phone",
+            "Interest" : "Interest Payment",
+            "MORTGAGE" : "Mortgage",
+            "WEBPAYMENT" : "Sewage and Water",
+            "Check" : "Check in/out",
+            "DOMINO" : "Dining Outside",
+            "MCDONALDS" : "Dining Outside",
+            "WAVE" : "Money Transfers",
+            "FEDEX" : "Packages"
         }
         
         # iterating through the category dictionary to get respective categories for transactions
         for category_keyword,category in category.items():
-            # searching for keywords in descriptions
-            if category_keyword in transaction_description:
-                return category
+            # # searching for keywords in descriptions
+            # if category_keyword in transaction_description:
+            #     print("*********" + category_keyword + " " + category)
+            #     return category
             # return no value if no keyword has been configured yet
-            else:
-                return " "
+            # else:
+            #     return " "
+            # searching for keywords in descriptions
+            # index = transaction_description.find(category_keyword)
+            # if index > -1:
+            #     return category
+            # # return no value if no keyword has been configured yet
+            # else:
+            #     return " "
             
+            # print(description_words)
+            for word in description_words:
+                if word == category_keyword:
+                    print("*****Word COMP " + word )
+                    print("*****CAT KYWD COMP " + category_keyword )
+                    print("********FOUND")
+                    print("*********" + category_keyword + " " + category)
+                    category_word = category
+                    return category_word
+        #         # return no value if no keyword has been configured yet
+        #         else:
+        #             print("*****Word COMP " + word )
+        #             print("*****CAT KYWD COMP " + category_keyword )
+        #             category_word = ""
+            
+        # return category_word
         
 
 
