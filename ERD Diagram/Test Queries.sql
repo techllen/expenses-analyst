@@ -17,3 +17,6 @@ WHERE year = 2022
 GROUP BY category;
 
 
+SELECT amount FROM transactions WHERE category = "Income" AND month = 1 AND year = 2022;
+
+SELECT category FROM transactions GROUP BY category

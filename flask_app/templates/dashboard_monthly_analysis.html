@@ -62,30 +62,42 @@
                                     <h3>Hello {{user_to_display.first_name}}</h3>
                                 </div>
                                 <div class="row">
-                                    <p>{{month}} {{year}} Analytics Overview</p>
+                                    <p id="current-month" ><span class="numeric-month">{{month}}</span> <span id="current-year-month">{{year}}</span> Analytics Overview</p>
                                 </div>
                             </div>
                             <div class="row"></div>
                         </div>
                         <div class="col-sm-5 selection">
                             <div class="row">
-                                <div class="col-sm-4 mt-1" id="month-mnpg">
-                                    <label for="months">Select month</label>
-                                    <select name="months" id="months">
-                                        {%for month_from_db in all_months_to_display%}
-                                            <option value="{{month_from_db.month}}">{{month_from_db.month}}</option>
-                                        {%endfor%}
-                                    </select>
-                                </div>
-                                <div class="col-sm-4 mt-1" id="year-mnpg">
-                                    <label for="year">Select Year</label>
-                                    <select name="year" id="year">
-                                        {%for year_from_db in all_years_to_display%}
-                                            <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
-                                        {%endfor%}
-                                    </select>
-                                </div>
-                                <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Analyze</button></a></div>
+                                <form action="/expenses-analyst/get_monthly_analysis" method="post">
+                                    <!-- <div class="col-sm-4 mt-1" id="month-mnpg">
+                                        <label for="months">Select month</label>
+                                        <select name="months" id="months">
+                                            {%for month_from_db in all_months_to_display%}
+                                                <option value="{{month_from_db.month}}">{{month_from_db.month}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 mt-1" id="year-mnpg">
+                                        <label for="year">Select Year</label>
+                                        <select name="year" id="year">
+                                            {%for year_from_db in all_years_to_display%}
+                                                <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div> -->
+                                    <div class="col-sm-4 mt-1" id="month-mnpg">
+                                    </div>
+                                    <div class="col-sm-4 mt-1" id="year-mnpg">
+                                        <label for="month_year">Select Month and Year to analyze</label>
+                                        <select name="month_year" id="year">
+                                            {%for month_year in months_years%}
+                                                <option value="{{month_year}}">{{month_year["month"]}}/{{month_year["year"]}}</option>
+                                            {%endfor%}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Analyze</button></a></div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -93,15 +105,15 @@
                         <div class="col-sm-3 money">
                             <div class="row" id="money-in">
                                 <div class="row"><p>Total Money In</p></div>
-                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                                <div class="row mb-3"><p id="total-income-month">{{total_income}}</p></div>
                             </div>
                             <div class="row mt-5" id="money-out">
                                 <div class="row"><p>Total Money Out</p></div>
-                                <div class="row mb-3"><p id="total">{Total money}</p></div>
+                                <div class="row mb-3"><p id="total-expenses-month">{{expenses}}</p></div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <canvas id="money-graph"></canvas>
+                            <canvas id="money-graph-month"></canvas>
                         </div>
                         <div class="col-sm-3 calendar-weather">
                             <div class="row" id="calendar">
@@ -122,11 +134,11 @@
                     </div>
                     <div class=" row money-out-brkdwn-bar-doughnut mt-5">
                         <div class="col-sm-6 bar-chart mt-2">
-                            <canvas id="money-out-brkdwn-bar"></canvas>
+                            <canvas id="money-out-brkdwn-bar-month"></canvas>
                         </div>
                         <div class="col-sm-6 doughnut-chart mt-2 ">
                             <div id="doughnut-back">
-                                <canvas id="money-out-brkdwn-doughnut"></canvas>
+                                <canvas id="money-out-brkdwn-doughnut-month"></canvas>
                             </div>
                         </div>
                     </div>
@@ -139,6 +151,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_year.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_month.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/edit_categories.js') }}"></script>
 </body>
 </html>

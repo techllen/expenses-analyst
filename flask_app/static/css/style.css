@@ -75,7 +75,7 @@ main{
     margin-left: -150px;
 }
 
-#money-in,#money-out,#money-graph,#money-out-brkdwn-doughnut,#money-out-brkdwn-bar,#weather{
+#money-in,#money-out,#money-graph,#money-out-brkdwn-doughnut,#money-out-brkdwn-bar,#weather,#money-graph-month,#money-out-brkdwn-bar-month,#money-out-brkdwn-doughnut-month{
     background-color: #FFFFFF;
     border-radius: 5px;
     padding: 10px;
@@ -120,11 +120,11 @@ main{
     margin-left: -10px;
 }
 
-.doughnut-chart{
+/* .doughnut-chart{
     position: relative;
     height:15vh;
     width: 41vh;
-}
+} */
 
 #transaction-table td{
     color: #ffffff;
@@ -138,4 +138,8 @@ main{
 #upload-icon-wrapper,#file-input-wrapper{
     display: flex;
     justify-content: center;
+}
+
+#hide{
+    display:none;
 }

@@ -50,34 +50,28 @@ class Transaction:
         return transactions_list
     
     # this retrieves all transactions and insert categories into the transactions
-    @classmethod
-    def insert_categories_to_transactions(cls):
-        query = "SELECT * FROM transactions" 
-        # query = "SELECT * FROM transactions WHERE month = 11 AND year = 2021" 
-        transactions_from_db = connectToMySQL(Transaction.database_name).query_db(query)
-        # transactions_list = [ ]
-        # checking if we found any transaction
-        if transactions_from_db == False:
-            return None
-        else:
-            # turning car results to objects
-            for transaction in transactions_from_db:
-                print("description from database" + transaction["description"])
-                # o be used to update the transaction category
-                transaction_data = {
-                    "id" : transaction["id"],
-                    "category" : Transaction.transaction_categorizer(transaction["description"])
-                }
-                # update Query
-                query = "UPDATE transactions SET category = %(category)s WHERE id = %(id)s" 
-                connectToMySQL(Transaction.database_name).query_db(query, transaction_data)
+    # @classmethod
+    # def insert_categories_to_transactions(cls):
+    #     query = "SELECT * FROM transactions" 
+    #     # query = "SELECT * FROM transactions WHERE month = 11 AND year = 2021" 
+    #     transactions_from_db = connectToMySQL(Transaction.database_name).query_db(query)
+    #     # transactions_list = [ ]
+    #     # checking if we found any transaction
+    #     if transactions_from_db == False:
+    #         return None
+    #     else:
+    #         # turning car results to objects
+    #         for transaction in transactions_from_db:
+    #             print("description from database" + transaction["description"])
+    #             # o be used to update the transaction category
+    #             transaction_data = {
+    #                 "id" : transaction["id"],
+    #                 "category" : Transaction.transaction_categorizer(transaction["description"])
+    #             }
+    #             # update Query
+    #             query = "UPDATE transactions SET category = %(category)s WHERE id = %(id)s" 
+    #             connectToMySQL(Transaction.database_name).query_db(query, transaction_data)
 
-                # # create a transaction object
-                # this_transaction = cls(transaction)
-                # # appending the objects to the list
-                # transactions_list.append(this_transaction)
-            # returning list of transaction objects
-        # return transactions_list
     
      # this retrieves transactions in between months
     @classmethod
@@ -148,6 +142,18 @@ class Transaction:
             months.append(month)
         return months
     
+    # this retrieves all years and months pairs from the database
+    @classmethod
+    def get_all_years_months_pairs(cls):
+        query = "SELECT month,year FROM transactions GROUP BY month" 
+        months_years_from_db = connectToMySQL(Transaction.database_name).query_db(query)
+        # empty list to hold the months
+        # months_years = [ ]
+        # convert db months to list
+        # for month_year in months_years_from_db:
+        #     months_years.append(month_year)
+        return months_years_from_db
+    
     # this retrieves all the incomes from the database
     @classmethod
     def get_yearly_income(cls,data):
@@ -178,20 +184,86 @@ class Transaction:
                 total_expenses += year_expense_from_db["amount"]
             # print("####total is:" + str(total_expenses))
             return total_expenses
+        
+     # this retrieves all the incomes from the database
+    @classmethod
+    def get_monthly_income(cls,data):
+        query = "SELECT amount FROM transactions WHERE category = %(category)s AND month = %(month)s AND year = %(year)s " 
+        monthly_incomes_from_db = connectToMySQL(Transaction.database_name).query_db(query,data)
+        total_income  = 0 
+        if monthly_incomes_from_db == False:
+            return None
+        else:
+            for month_income_from_db in monthly_incomes_from_db:
+                # print(month_income_from_db["amount"])
+                total_income += month_income_from_db["amount"]
+            # print("####total is:" + str(total_income))
+            return total_income
+        
+    # this retrieves all the expenses from the database
+    @classmethod
+    def get_monthly_expenses(cls,data):
+        query = "SELECT amount FROM transactions WHERE amount < %(amount)s  AND month = %(month)s AND year = %(year)s" 
+        monthly_expenses_from_db = connectToMySQL(Transaction.database_name).query_db(query,data)
+        total_expenses  = 0 
+        if monthly_expenses_from_db == False:
+            return None
+        else:
+            # print("items " + str(len(monthly_expenses_from_db)))
+            for month_expense_from_db in monthly_expenses_from_db:
+                # print(month_expense_from_db["amount"])
+                total_expenses += month_expense_from_db["amount"]
+            # print("####total is:" + str(total_expenses))
+            return total_expenses
     
     #this method gets all categories and their total values from the database 
     @classmethod
-    def get_all_categories_and_their_total_in_a_year(data):
+    def get_all_categories_and_their_total_in_a_year(cls,data):
         query = "SELECT category, SUM(amount) AS category_total FROM transactions WHERE year = %(year)s GROUP BY category " 
         category_and_their_total_from_db = connectToMySQL(Transaction.database_name).query_db(query,data)
+        categories = []
         if category_and_their_total_from_db == False:
             return None
         else:
             for category_and_total in category_and_their_total_from_db:
-                pass
-                
-
-    
+                categories.append(category_and_total)
+            # print(categories)
+            return categories
+        
+    #this method gets all categories and their total values from the database 
+    @classmethod
+    def get_all_categories_and_their_total_in_a_month(cls,data):
+        query = "SELECT category, SUM(amount) AS category_total FROM transactions WHERE month = %(month)s AND year = %(year)s GROUP BY category " 
+        category_and_their_total_from_db = connectToMySQL(Transaction.database_name).query_db(query,data)
+        categories = []
+        if category_and_their_total_from_db == False:
+            return None
+        else:
+            for category_and_total in category_and_their_total_from_db:
+                categories.append(category_and_total)
+            # print(categories)
+            return categories
+        
+    #this method gets all categories from the database 
+    @classmethod
+    def get_all_categories_only(cls):
+        query = "SELECT category FROM transactions GROUP BY category " 
+        categories_from_db = connectToMySQL(Transaction.database_name).query_db(query)
+        categories_only = []
+        if categories_from_db == False:
+            return None
+        else:
+            for category in categories_from_db:
+                categories_only.append(category)
+            # print(categories)
+            return categories_only
+        
+    #this update category 
+    @classmethod
+    def update_category(cls,data):
+        query = "UPDATE transactions SET category =  %(category)s  WHERE id =  %(id)s " 
+        connectToMySQL(Transaction.database_name).query_db(query,data)
+        
                     
     # this method converts months from string to numerical values for storing in the database
     @staticmethod
@@ -226,8 +298,8 @@ class Transaction:
     def transaction_categorizer(transaction_description):
         
         # spliting transaction description
-        description_words = transaction_description.split()
-        category_word = ""
+        # description_words = transaction_description.split()
+        # category_word = ""
         
         # transaction categories dictionary
         # category = {
@@ -245,7 +317,9 @@ class Transaction:
             "EFT" : "Income",
             "PAYROLL" : "Income",
             "HORIZONS" : "Income",
+            "ASSIST" : "Income",
             "DISCOVERY" : "Entertainment",
+            "FANDANGO" : "Entertainment",
             "SXCW" : "Fuel ",
             "Fuel" : "Fuel",
             "BP" : "Fuel",
@@ -263,16 +337,18 @@ class Transaction:
             "Check" : "Check in/out",
             "DOMINO" : "Dining Outside",
             "MCDONALDS" : "Dining Outside",
+            "KFC" : "Dining Outside",
             "WAVE" : "Money Transfers",
+            "Zelle" : "Money Transfers",
             "FEDEX" : "Packages"
         }
         
         # iterating through the category dictionary to get respective categories for transactions
         for category_keyword,category in category.items():
             # # searching for keywords in descriptions
-            # if category_keyword in transaction_description:
-            #     print("*********" + category_keyword + " " + category)
-            #     return category
+            if category_keyword in transaction_description:
+                # print("*********" + category_keyword + " " + category)
+                return category
             # return no value if no keyword has been configured yet
             # else:
             #     return " "
@@ -285,14 +361,14 @@ class Transaction:
             #     return " "
             
             # print(description_words)
-            for word in description_words:
-                if word == category_keyword:
-                    print("*****Word COMP " + word )
-                    print("*****CAT KYWD COMP " + category_keyword )
-                    print("********FOUND")
-                    print("*********" + category_keyword + " " + category)
-                    category_word = category
-                    return category_word
+            # for word in description_words:
+            #     if word == category_keyword:
+            #         print("*****Word COMP " + word )
+            #         print("*****CAT KYWD COMP " + category_keyword )
+            #         print("********FOUND")
+            #         print("*********" + category_keyword + " " + category)
+            #         category_word = category
+            #         return category_word
         #         # return no value if no keyword has been configured yet
         #         else:
         #             print("*****Word COMP " + word )

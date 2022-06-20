@@ -57,7 +57,7 @@
                 <div id="content">
                     <div class="row " id="selection">
                             <div class="row selection">
-                                <div class="col-sm-4 mt-1">
+                                <!-- <div class="col-sm-4 mt-1">
                                     <label for="months">Select month</label>
                                     <select name="months" id="months">
                                         {%for month_from_db in all_months_to_display%}
@@ -73,45 +73,68 @@
                                         {%endfor%}
                                     </select>
                                 </div>
-                                <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div>
-                            </div>
-                            <div id="transaction-table">
-                                <div class="row main-table">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th >Month</th>
-                                                <th >Year</th>
-                                                <th >Description</th>
-                                                <th >Amount</th>
-                                                <th >Category</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody> 
-                                            {%for transaction in transactions_from_db %}
-                                            <tr>
-                                                <td>{{transaction.month}}</td>
-                                                <td>{{transaction.year}}</td>
-                                                <td>{{transaction.description}}</td>
-                                                <td>{{transaction.amount}}</td>
-                                                <!-- <td>{{transaction.category}}</td> -->
-                                                <td>
-                                                    <select name="category" id="category">
-                                                        <option value="">Grocery</option>
-                                                        <option value="">Electricity</option>
-                                                        <option value="">Sewage and Water</option>
-                                                        <option value="">Insurance</option>
-                                                        <option value="">Entertainment</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
+                                <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div> -->
+                                <form action="/expenses_analyst/edit_categories_month" method="post">
+                                    <div class="col-sm-4 mt-1" id="month-mnpg">
+                                    </div>
+                                    <div class="col-sm-4 mt-1" id="year-mnpg">
+                                        <label for="month_year">Select Month and Year to View(mm/yyyy)</label>
+                                        <select name="month_year" id="year">
+                                            {%for month_year in months_years%}
+                                                <option value="{{month_year}}">{{month_year["month"]}}/{{month_year["year"]}}</option>
                                             {%endfor%}
-                                          </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div>
+                                </form>
+                            </div>
+                                <!-- <div class="row">
                                     <button type="submit" id="save-changes-btn">Save Changes</button>
-                                </div>
+                                </div> -->
+                                <div id="transaction-table">
+                                    <div class="row main-table">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th >Month</th>
+                                                    <th >Year</th>
+                                                    <th >Description</th>
+                                                    <th >Amount</th>
+                                                    <th >Category</th>
+                                                    <th >Action</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody> 
+                                                    {%for transaction in transactions_from_db %}
+                                                    <tr>
+                                                        <td class="numeric-month">{{transaction.month}}</td>
+                                                        <td>{{transaction.year}}</td>
+                                                        <td>{{transaction.description}}</td>
+                                                        <td>{{transaction.amount}}</td>
+                                                        <!-- <td>{{transaction.category}}</td> -->
+                                                        <td>
+                                                        <form action="/expenses_analyst/update_category" method="post">
+                                                            <input type="hidden" name="transaction_id" value="{{transaction.id}}">
+                                                            <select name="category" id="category">
+                                                                {%for category in categories_to_display%}
+                                                                    {%if transaction.category == category.category%}
+                                                                        <option value="{{category.category}}" selected>{{category.category}}</option>
+                                                                    {%else%}
+                                                                        <option value="{{category.category}}">{{category.category}}</option>
+                                                                    {%endif%}
+                                                                {%endfor%}
+                                                            </select>
+                                                            <td><button type="submit" id="save-changes-btn">Save Changes</button></td>
+                                                        </form>
+                                                        </td>
+                                                    </tr>
+                                                    {%endfor%}
+                                              </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <button type="submit" id="save-changes-btn">Save Changes</button>
+                                    </div> -->
                             </div>
                     </div>
                 </div>
@@ -123,6 +146,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/edit_categories.js') }}"></script>
 </body>
 </html>

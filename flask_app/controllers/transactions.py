@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template,redirect,session,request,url_for,flash
+from flask import render_template,redirect,session,request,url_for,flash,jsonify
 from flask_app.models import user,transaction
 from flask_app.controllers import users
 
@@ -51,6 +51,29 @@ def upload():
                 clear_directory()
         return redirect("/expenses_analyst/dashboards/yearly_analysis")
 
+# this route retrieves list of categories and their total from db
+@app.route("/get_all_categories/<int:year>")
+def get_all_categories_and_their_total(year):
+    # year dictionary
+    year_data = {
+        "year" : year
+    }
+    # retrieve categories from db and put the data in JSON format
+    categories_and_total_list_JSON = jsonify(transaction.Transaction.get_all_categories_and_their_total_in_a_year(year_data))
+    return categories_and_total_list_JSON
+
+# this route retrieves list of categories and their total from db
+@app.route("/get_all_categories/<int:month>/<int:year>")
+def get_all_categories_and_their_total_in_a_month(month,year):
+    # month dictionary
+    month_data = {
+        "month" : month,
+        "year" : year
+    }
+    # retrieve categories from db and put the data in JSON format
+    categories_and_total_list_JSON = jsonify(transaction.Transaction.get_all_categories_and_their_total_in_a_month(month_data))
+    return categories_and_total_list_JSON
+
 # this method parses pdf files
 def pdf_parser(pdf_file_path):
     with pdfplumber.open(pdf_file_path) as pdf:
@@ -95,7 +118,7 @@ def pdf_parser(pdf_file_path):
                     # extracting description replace non numeric with space and remove space at the beginning and the end of the string
                     # spaces are used in order to make description readable
                     description=(((re.sub("[^A-Za-z]"," ",line))[3:]).rstrip(" ")).lstrip(" ")
-                    print("********DESCR="+ description)
+                    # print("********DESCR="+ description)
                     # print(type(line))
                     # print("Month in numeric is" + str(Transaction.month_converter(date_re.search(line).group(0).strip())))
                     # 
@@ -106,8 +129,8 @@ def pdf_parser(pdf_file_path):
                         "description" : description,
                         "amount" : amount,
                         # run the categorizer method to get the category by passing the description
-                        # "category" : transaction.Transaction.transaction_categorizer(description),
-                        "category" : "",
+                        "category" : transaction.Transaction.transaction_categorizer(description),
+                        # "category" : "",
                         "user_id" : user_id
                     }
                     # print(transaction_data)
@@ -115,7 +138,7 @@ def pdf_parser(pdf_file_path):
                     # saving the transactions in the database
                     transaction.Transaction.save_transaction(transaction_data)
                     # insert categories
-                    transaction.Transaction.insert_categories_to_transactions()
+                    # transaction.Transaction.insert_categories_to_transactions()
                     
 # this method searches for the file paths to parse
 def find_file_path():
