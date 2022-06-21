@@ -11,31 +11,36 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav>
+        <nav class = "mb-5">
             <div class="row">
                     <ul class="nav nav-fill">
-                        <li class="nav-item">
-                          <a class="nav-link" href="/expenses_analyst/dashboards/yearly_analysis">
-                            <div id="logo" class="mt-2">
-                                <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
-                        </li>
+                        <div class="col-sm-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/expenses_analyst/dashboards/yearly_analysis">
+                                  <div id="logo" class="mt-2">
+                                      <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                                  </div>
+                              </li>
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                            </li>
+                        </div>
                     </ul>
             </div>
         </nav>
         <main>
             <div class="row">
                 <div class="col-sm-4"></div>
-                <div class="col-sm-4 mt-5" id="upload">
-                    <div id="upload-icon-wrapper">
+                <div class="col-sm-4 mt-5" id="upload center-vertically">
+                    <div id="upload-icon-wrapper" class="mb-5">
                         <i class="bi bi-upload"  id="upload-icon"></i>
                     </div>
                     <div >
                         <form action="/upload" method="POST" id="file-input-wrapper" enctype=multipart/form-data>
-                            <input type="file" name="file">
+                            <input type="file" name="file" id="file-input">
                             <button type="submit" id="upload-button" value="upload">Upload</button>
                         </form>
                     </div>

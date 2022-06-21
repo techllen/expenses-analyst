@@ -13,23 +13,28 @@
         <nav>
             <div class="row">
                     <ul class="nav nav-fill">
-                        <li class="nav-item">
-                          <a class="nav-link" href="/">
-                            <div id="logo" class="mt-2">
-                                <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="/"><button id="sign_up-link-button" class="mt-5">Dont have an account? Sign up</button></a>
-                        </li>
+                        <div class="col-sm-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">
+                                  <div id="logo" class="mt-2">
+                                      <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                                  </div>
+                              </li>
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/"><button id="sign_up-link-button" class="mt-5">Dont have an account? Sign up</button></a>
+                              </li>
+                        </div>
                     </ul>
             </div>
         </nav>
         <main>
             <div class="row mt-5">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <form action="/login" method="POST">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" id="login-form">
+                    <form action="/login" method="POST" >
                         {% with messages = get_flashed_messages(category_filter=["login-error"]) %} 
                         {% if messages %}                           
                             {% for message in messages %}            
@@ -57,7 +62,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4"></div>
+                <div class="col-sm-3"></div>
             </div>
         </main>
     </div>

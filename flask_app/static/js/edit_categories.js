@@ -38,3 +38,14 @@ function numericMonthToWord(){
   }
   numericMonthToWord()
 //   console.log(numericMonthToWord());
+
+// the code below opens and closes side nav bar
+function openNav() {
+    document.getElementById("side-navigation-wrapper").style.width = "250px";
+    document.getElementById("main-content").style.marginLeft = "250px";
+  }
+  
+function closeNav() {
+    document.getElementById("side-navigation-wrapper").style.width = "0";
+    document.getElementById("main-content").style.marginLeft= "0";
+  }
