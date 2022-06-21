@@ -11,48 +11,47 @@
 </head>
 <body>
     <div class="container-fluid row">
-        <div class="col-sm-2" id="side-navigation">
-            <nav>
-                <div class="side-bar-brand col-12" id="hide-this">
-                    <div id="logo" class="mt-2">
-                        <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+        <div class="col-sm-2" id="side-navigation-wrapper">
+            <nav id="side-navigation">
+                <div class="row " id="side-bar-brand-wrapper">
+                    <div class="side-bar-brand col-sm-11" id="hide-this">
+                        <div id="logo" class="mt-2">
+                            <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                        </div>
                     </div>
+                    <div class="col-sm-1"></div>
                 </div>
-                <div class="side-bar-content col-12 mt-3" id="hide-this">
-                    <ul class="nav col-12">
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dashboards</a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a></li>
-                            <li><a class="dropdown-item" href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a></li>
-                          </ul>
-                        </li>
-                        <li class="nav-item col-12">
-                          <a class="nav-link" href="/expenses_analyst/upload_statement">Upload Statement</a>
-                        </li>
-                        <li class="nav-item col-12">
-                          <a class="nav-link" href="/expenses_analyst/edit_categories">Edit Categories</a>
-                        </li>
-                        <li class="nav-item col-12">
-                            <a class="nav-link" href="/expenses_analyst/view_transactions">View Transactions</a>
-                          </li>
-                    </ul>
+                <div class="row" id="side-bar-content-wrapper">
+                    <div class="col-sm-1"></div>
+                    <div class="side-bar-content col-sm-11 mt-3 pt-5" id="hide-this">
+                        <ul class="nav col-12">
+                            <!-- <li class="nav-item col-12">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                              </li> -->
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="bi bi-speedometer icons"></i>   Dashboards</a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a></li>
+                                <li><a class="dropdown-item" href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a></li>
+                              </ul>
+                            </li>
+                            <li class="nav-item col-12">
+                              <a class="nav-link" href="/expenses_analyst/upload_statement"><i class="bi bi-cloud-upload-fill icons"></i>   Upload Statement</a>
+                            </li>
+                            <li class="nav-item col-12">
+                              <a class="nav-link" href="/expenses_analyst/edit_categories"><i class="bi bi-pen-fill icons"></i>   Edit Categories</a>
+                            </li>
+                            <li class="nav-item col-12">
+                                <a class="nav-link" href="/expenses_analyst/view_transactions"><i class="bi bi-binoculars-fill icons"></i>  View Transactions</a>
+                              </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10"  id="main-content">
             <main>
                 <div class="row">
-                    <!-- <ul class="nav nav-fill col-12 " id="navigation">
-                        <li class="nav-item" id="humburger">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#hide-this">
-                                <i class="bi bi-list" id="humburger-menu"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item " id="logout-link">
-                          <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
-                        </li>
-                    </ul> -->
                         <div class="d-flex flex-row bd-highlight col-sm-6 " id="humburger">
                             <div class="p-2 bd-highlight">
                                 <i class="bi bi-list" id="humburger-menu"></i>
@@ -60,14 +59,14 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight col-sm-6" id="log-out-div">
                             <div class="p-2 bd-highlight">
-                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5"><i class="bi bi-door-closed-fill"></i>  Sign Out</button></a>
                             </div>
                         </div>
                 </div>
                 <div id="content">
                     <div class="row " id="greeting-desc-selection">
-                        <div class="col-sm-7 greeting-descr">
-                            <div class="row">
+                        <div class="col-sm-4 greeting-descr ps-0">
+                            <div class="row ps-1">
                                 <div class="row"> 
                                     <h3>Hello {{user_to_display.first_name}}</h3>
                                 </div>
@@ -77,11 +76,11 @@
                             </div>
                             <div class="row"></div>
                         </div>
-                        <div class="col-sm-5 selection">
+                        <div class="col-sm-8 selection">
                             <form action="/expenses-analyst/get_yearly_analysis" method="post">
-                                <div class="row">
-                                    <div class="col-sm-6 " id="year">
-                                        <label for="year">Select Year</label>
+                                <div class="row" id="center-horizontally">
+                                    <div class="col-sm-10" id="year">
+                                        <label for="year" class="mt-3">Select Year to Analyze</label>
                                         <select name="year" id="year">   
                                             {%for year_from_db in all_years_to_display%}
                                                 {%if year_from_db == year%}
@@ -92,7 +91,7 @@
                                             {%endfor%}
                                         </select>
                                     </div>
-                                    <div class="col-sm-6 "><a href="#"><button type="submit" id="analyze-btn">Analyze</button></a></div>
+                                    <div class="col-sm-2 "><a href="#"><button type="submit" id="analyze-btn" class="mt-1">Analyze</button></a></div>
                                 </div>
                             </form>
                         </div>
@@ -100,11 +99,11 @@
                     <div class="row money-moneygraph-calendar-weather">
                         <div class="col-sm-3 money">
                             <div class="row" id="money-in">
-                                <div class="row"><p>Total Money In</p></div>
+                                <div class="row"><p class="money-txt">Total Money In</p></div>
                                 <div class="row mb-3"><p id="total-income">{{total_income}}</p></div>
                             </div>
                             <div class="row mt-5" id="money-out">
-                                <div class="row"><p>Total Money Out</p></div>
+                                <div class="row"><p class="money-txt">Total Money Out</p></div>
                                 <div class="row mb-3"><p id="total-expenses">{{expenses}}</p></div>
                             </div>
                         </div>

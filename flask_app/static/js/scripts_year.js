@@ -16,7 +16,7 @@ const totalLabels = [
     labels: totalLabels,
     datasets: [{
       label: "Annual Money In/Money Out",
-      backgroundColor: "#153d77",
+      backgroundColor: "#3b7ddd",
       borderColor: 'rgb(255, 99, 132)',
       data: [moneyIn,moneyOut],
     }]
@@ -68,7 +68,7 @@ getCategories(currentYear);
     labels: categoriesLabels,
     datasets: [{
       label: "Categories Breakdown Individual Comparison",
-      backgroundColor: "#153d77",
+      backgroundColor: "#3b7ddd",
       borderColor: 'rgb(255, 99, 132)',
       // data: [3000,5000],
       data: categoriesTotals,
@@ -92,7 +92,7 @@ var categoriesData = {
   labels: categoriesLabels,
   datasets: [{
     label: "Categories Breakdown To Total Comparison",
-    backgroundColor: "#153d77",
+    backgroundColor: "#3b7ddd",
     borderColor: "#42BE9B",
     // data: [3000,5000],
     data : categoriesTotals

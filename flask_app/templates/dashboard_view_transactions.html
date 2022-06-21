@@ -15,34 +15,36 @@
             <nav id="side-navigation">
                 <div class="row " id="side-bar-brand-wrapper">
                     <div class="side-bar-brand col-sm-11" id="hide-this center-horizontally">
-                        <div id="logo" class="mt-2">
-                            <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
-                        </div>
+                        <a class="nav-link" href="/expenses_analyst/dashboards/yearly_analysis">
+                            <div id="logo" class="mt-2">
+                                <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-sm-1"></div>
                 </div>
                 <div class="row" id="side-bar-content-wrapper">
                     <div class="col-sm-1"></div>
-                    <div class="side-bar-content col-sm-11 mt-3" id="hide-this">
+                    <div class="side-bar-content col-sm-11 mt-3 pt-5" id="hide-this">
                         <ul class="nav col-12">
-                            <li class="nav-item col-12">
+                            <!-- <li class="nav-item col-12">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                              </li>
+                              </li> -->
                             <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dashboards</a>
+                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="bi bi-speedometer icons"></i>   Dashboards</a>
                               <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a></li>
                                 <li><a class="dropdown-item" href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a></li>
                               </ul>
                             </li>
                             <li class="nav-item col-12">
-                              <a class="nav-link" href="/expenses_analyst/upload_statement">Upload Statement</a>
+                              <a class="nav-link" href="/expenses_analyst/upload_statement"><i class="bi bi-cloud-upload-fill icons"></i>   Upload Statement</a>
                             </li>
                             <li class="nav-item col-12">
-                              <a class="nav-link" href="/expenses_analyst/edit_categories">Edit Categories</a>
+                              <a class="nav-link" href="/expenses_analyst/edit_categories"><i class="bi bi-pen-fill icons"></i>   Edit Categories</a>
                             </li>
                             <li class="nav-item col-12">
-                                <a class="nav-link" href="/expenses_analyst/view_transactions">View Transactions</a>
+                                <a class="nav-link" href="/expenses_analyst/view_transactions"><i class="bi bi-binoculars-fill icons"></i>  View Transactions</a>
                               </li>
                         </ul>
                     </div>
@@ -54,12 +56,12 @@
                 <div class="row">
                         <div class="d-flex flex-row bd-highlight col-sm-6 " id="humburger">
                             <div class="p-2 bd-highlight">
-                                <i class="bi bi-list openbtn" id="humburger-menu" onclick="openNav()"></i>
+                                <i class="bi bi-list openbtn" id="humburger-menu""></i>
                             </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight col-sm-6" id="log-out-div">
                             <div class="p-2 bd-highlight">
-                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5"><i class="bi bi-door-closed-fill"></i>    Sign Out</button></a>
                             </div>
                         </div>
                 </div>
@@ -75,8 +77,8 @@
                                             {%endfor%}
                                         </select>
                                     </div>
-                                    <div class="col-sm-5"></div>
-                                    <div class="d-flex flex-row-reverse bd-highlight col-sm-1 "><a href="#"><button id="analyze-btn" class="mt-2">Get Transactions</button></a></div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="d-flex flex-row-reverse bd-highlight col-sm-3 "><a href="#"><button id="analyze-btn" class="mt-2 me-5">View Transactions</button></a></div>
                                 </form>
                             </div>
                             <div id="transaction-table">

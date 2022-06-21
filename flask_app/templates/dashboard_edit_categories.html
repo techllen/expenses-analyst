@@ -11,36 +11,45 @@
 </head>
 <body>
     <div class="container-fluid row">
-        <div class="col-sm-2" id="side-navigation">
-            <nav>
-                <div class="side-bar-brand col-12" id="hide-this">
-                    <div id="logo" class="mt-2">
-                        <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
-                    </div>
+        <div class="col-sm-2" id="side-navigation-wrapper" >
+            <nav id="side-navigation">
+                <div class="side-bar-brand col-sm-11" id="hide-this">
+                    <a class="nav-link" href="/expenses_analyst/dashboards/yearly_analysis">
+                        <div id="logo" class="mt-2">
+                            <img src="{{ url_for('static', filename='/images/expenses_analyst_logo_mini.png') }}" alt="Application Logo"></a>
+                        </div>
+                    </a>
                 </div>
-                <div class="side-bar-content col-12 mt-3" id="hide-this">
-                    <ul class="nav col-12">
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Dashboards</a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a></li>
-                            <li><a class="dropdown-item" href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a></li>
-                          </ul>
-                        </li>
-                        <li class="nav-item col-12">
-                          <a class="nav-link" href="/expenses_analyst/upload_statement">Upload Statement</a>
-                        </li>
-                        <li class="nav-item col-12">
-                          <a class="nav-link" href="/expenses_analyst/edit_categories">Edit Categories</a>
-                        </li>
-                        <li class="nav-item col-12">
-                            <a class="nav-link" href="/expenses_analyst/view_transactions">View Transactions</a>
-                          </li>
-                    </ul>
+                <div class="col-sm-1"></div>
+                <div class="row" id="side-bar-content-wrapper">
+                    <div class="col-sm-1"></div>
+                    <div class="side-bar-content col-sm-11 mt-3 pt-5" id="hide-this">
+                        <ul class="nav col-12">
+                            <!-- <li class="nav-item col-12">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                              </li> -->
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="bi bi-speedometer icons"></i>   Dashboards</a>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/expenses_analyst/dashboards/monthly_analysis">Monthly Analysis</a></li>
+                                <li><a class="dropdown-item" href="/expenses_analyst/dashboards/yearly_analysis">Yearly Analysis</a></li>
+                              </ul>
+                            </li>
+                            <li class="nav-item col-12">
+                              <a class="nav-link" href="/expenses_analyst/upload_statement"><i class="bi bi-cloud-upload-fill icons"></i>   Upload Statement</a>
+                            </li>
+                            <li class="nav-item col-12">
+                              <a class="nav-link" href="/expenses_analyst/edit_categories"><i class="bi bi-pen-fill icons"></i>   Edit Categories</a>
+                            </li>
+                            <li class="nav-item col-12">
+                                <a class="nav-link" href="/expenses_analyst/view_transactions"><i class="bi bi-binoculars-fill icons"></i>  View Transactions</a>
+                              </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10" id="main-content">
             <main>
                 <div class="row">
                         <div class="d-flex flex-row bd-highlight col-sm-6 " id="humburger">
@@ -50,42 +59,24 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight col-sm-6" id="log-out-div">
                             <div class="p-2 bd-highlight">
-                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5">Sign Out</button></a>
+                                <a class="nav-link" href="/logout"><button id="log-out-button" class="mt-5"><i class="bi bi-door-closed-fill"></i>   Sign Out</button></a>
                             </div>
                         </div>
                 </div>
                 <div id="content">
                     <div class="row " id="selection">
                             <div class="row selection">
-                                <!-- <div class="col-sm-4 mt-1">
-                                    <label for="months">Select month</label>
-                                    <select name="months" id="months">
-                                        {%for month_from_db in all_months_to_display%}
-                                            <option value="{{month_from_db.month}}">{{month_from_db.month}}</option>
-                                        {%endfor%}
-                                    </select>
-                                </div>
-                                <div class="col-sm-4 mt-1" >
-                                    <label for="year">Select Year</label>
-                                    <select name="year" id="year">
-                                        {%for year_from_db in all_years_to_display%}
-                                            <option value="{{year_from_db.year}}">{{year_from_db.year}}</option>
-                                        {%endfor%}
-                                    </select>
-                                </div>
-                                <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div> -->
-                                <form action="/expenses_analyst/edit_categories_month" method="post">
-                                    <div class="col-sm-4 mt-1" id="month-mnpg">
-                                    </div>
-                                    <div class="col-sm-4 mt-1" id="year-mnpg">
-                                        <label for="month_year">Select Month and Year to View(mm/yyyy)</label>
+                                <form action="/expenses_analyst/edit_categories_month" method="post" id="center-horizontally" class="mb-5">
+                                    <div class="d-flex flex-row bd-highlight col-sm-6" id="center-vertcally">
+                                        <label for="month_year" id="center-vertcally" class="mt-3 me-5">Select Month and Year to Edit  (mm/yyyy)  </label>
                                         <select name="month_year" id="year">
                                             {%for month_year in months_years%}
                                                 <option value="{{month_year}}">{{month_year["month"]}}/{{month_year["year"]}}</option>
                                             {%endfor%}
                                         </select>
                                     </div>
-                                    <div class="col-sm-4 "><a href="#"><button id="analyze-btn">Get Expenses</button></a></div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="d-flex flex-row-reverse bd-highlight col-sm-3"><button id="analyze-btn" class="mt-2 me-5">Get Transactions</button></a></div>
                                 </form>
                             </div>
                                 <!-- <div class="row">
@@ -113,7 +104,7 @@
                                                         <td>{{transaction.amount}}</td>
                                                         <!-- <td>{{transaction.category}}</td> -->
                                                         <td>
-                                                        <form action="/expenses_analyst/update_category" method="post">
+                                                        <form action="/expenses_analyst/update_category" method="post" id="edit-category-form" class="w-50">
                                                             <input type="hidden" name="transaction_id" value="{{transaction.id}}">
                                                             <select name="category" id="category">
                                                                 {%for category in categories_to_display%}

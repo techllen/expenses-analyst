@@ -107,7 +107,7 @@ var categoriesData = {
 };
 
 var categoriesDataConfig2 = {
-  type: 'line',
+  type: 'doughnut',
   data: categoriesData,
   options: {}
 };
