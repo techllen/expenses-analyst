@@ -4,7 +4,7 @@
 	expenses analysis on a dashboard page and edit the expenses categories.The application 
 	will parse the document,categorize the expenses(Categories such as groceries,fuel etc)
   	and save the transactions in a database for future analysis.
-	<br />
+	<br /> <br />
 	The purpose of this application 
 	is to automate the analysis of monthly household expenses 
  	and give the user the overview(how they are doing over the year period) so that they
