@@ -3,9 +3,8 @@
 	and signout.Upon logging in the users can upload pdf bank statements,view the 
 	expenses analysis on a dashboard page and edit the expenses categories.The application 
 	will parse the document,categorize the expenses(Categories such as groceries,fuel etc)
-  and save the transactions in a database for future analysis. 
-
-	The purpose of this application is to automate the analysis of monthly household expenses 
+  	and save the transactions in a database for future analysis.The purpose of this application 
+	is to automate the analysis of monthly household expenses 
  	and give the user the overview(how they are doing over the year period) so that they
 	are able to make finacial decisions/budgeting. 
 
