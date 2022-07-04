@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <canvas id="money-graph"></canvas>
+                            <div id="money-graph"></div>
                         </div>
                         <div class="col-sm-3 calendar-weather">
                             <div class="row" id="calendar">
@@ -117,7 +117,7 @@
                             <div class="row " id="weather">
                                 <div class="col-6" id="day-icon">
                                     <div class="row" id="day">Today</div>
-                                    <div class="row"><img src="" alt="weather Icon" id="weather-icon"></div>
+                                    <div class="row" id="weather-icon-wrapper"><img src="" alt="weather Icon" id="weather-icon"></div>
                                 </div>
                                 <div class="col-6" id="loc-temp-descr">
                                     <div class="row" id="location">Whitsett ,NC</div>
@@ -129,11 +129,11 @@
                     </div>
                     <div class=" row money-out-brkdwn-bar-doughnut mt-5">
                         <div class="col-sm-6 bar-chart mt-2">
-                            <canvas id="money-out-brkdwn-bar"></canvas>
+                            <div id="money-out-brkdwn-bar"></div>
                         </div>
                         <div class="col-sm-6 doughnut-chart mt-2 ">
                             <div id="doughnut-back">
-                                <canvas id="money-out-brkdwn-doughnut"></canvas>
+                                <div id="money-out-brkdwn-doughnut"></div>
                             </div>
                         </div>
                     </div>
@@ -143,10 +143,13 @@
         </div>
     </div>
     <!-- javascript -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_year.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_year_1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_year_2.js') }}"></script>
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='/js/scripts_.js') }}"></script> -->
 </body>
 </html>

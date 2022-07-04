@@ -203,3 +203,12 @@ main{
 #total-expenses,#total-expenses-month,#total-income,#total-income-month{
     font-size: 180%;
 }
+
+/* #money-graph{
+    width: 100%;
+    height: auto;
+} */
+
+#weather-icon{
+    height: 100px;
+}

@@ -174,3 +174,5 @@ config.js
 scripts.js
 
 uploads/*
+
+sample_statements/*
