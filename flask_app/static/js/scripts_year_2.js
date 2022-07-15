@@ -61,7 +61,13 @@ function drawChart() {
   var options = {
     title: 'Money out breakdown Comparison To Total',
     pieHole: 0.3,
+    height:400,
+    is3D: true,
+    vAxis: {title: 'Amount', format:'decimal'},
+    hAxis: {title: 'Year', format:'decimal'},
   };
+
+  
 
   var chart = new google.visualization.PieChart(document.getElementById('money-out-brkdwn-doughnut'));
   chart.draw(data, options);

@@ -46,14 +46,37 @@ google.charts.load('current', {'packages':['bar']});
         var data = google.visualization.arrayToDataTable(
           moneyGraphArray
         );
-
+// SET CHARTS OPTIONS
         var options = {
           chart: {
             title: 'Money In/Money Out',
             // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
           },
-          bars: 'vertical' // Required for Material Bar Charts.
+          bars: 'vertical', // Required for Material Bar Charts.
+          height:350,
+          titleTextStyle: {
+            // fontName: 'Times-Roman',
+            // fontSize: 18,
+            bold: true,
+            // italic: true,
+            // // The color of the text.
+            color: '#000000',
+            // // The color of the text outline.
+            // auraColor: '#d799ae',
+            // // The transparency of the text.
+            // opacity: 0.8
+          },
+          vAxis: {title: 'Amount', format:'decimal'},
+          hAxis: {title: 'Year', format:'decimal'},
         };
+
+        // var options = {
+        //   // 'legend':'left',
+        //   'title':'Money In/Money Out',
+        //   // 'is3D':true,
+        //   // 'width':400,
+        //   'height':350
+        // }
 
         var chart = new google.charts.Bar(document.getElementById('money-graph'));
 

@@ -18,16 +18,18 @@ function getCategories(year){
       // adding labels to the array
       if (i == 0 ){
         var categoriesLabelsAndTotalBarLets = [];
-        categoriesLabelsAndTotalBarLets[0] = "Year"
-        categoriesLabelsAndTotalBarLets[1] = "Category";
-        categoriesLabelsAndTotalBarLets[2] = "Category Total";
+        // categoriesLabelsAndTotalBarLets[0] = "Year"
+        categoriesLabelsAndTotalBarLets[0] = "Category";
+        categoriesLabelsAndTotalBarLets[1] = "Category Total";
         // console.log(data[i])
         categoriesLabelsAndTotalBar.push(categoriesLabelsAndTotalBarLets)
       }else{
         var categoriesLabelsAndTotalBarLets = [];
-        categoriesLabelsAndTotalBarLets[0] = currentYear
-        categoriesLabelsAndTotalBarLets[1] = data[i].category;
-        categoriesLabelsAndTotalBarLets[2] = Math.floor(Math.abs(data[i].category_total));
+        // categoriesLabelsAndTotalBarLets[0] = currentYear
+        categoriesLabelsAndTotalBarLets[0] = data[i].category;
+        // categoriesLabelsAndTotalBarLets[1] = Math.floor(Math.abs(data[i].category_total));
+        categoriesLabelsAndTotalBarLets[1] = Math.floor(data[i].category_total);
+
         // console.log(data[i])
         categoriesLabelsAndTotalBar.push(categoriesLabelsAndTotalBarLets)
       // }
@@ -55,12 +57,36 @@ google.charts.load('current', {'packages':['bar']});
         );
 
         var options = {
+          
           chart: {
             title: 'Money Out Breakdown Individual Comparison',
             // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
           },
-          bars: 'vertical' // Required for Material Bar Charts.
+          bars: 'vertical', // Required for Material Bar Charts.
+          height:400,
+          titleTextStyle: {
+              // fontName: 'Times-Roman',
+              // fontSize: 18,
+              bold: true,
+              // italic: true,
+              // // The color of the text.
+              color: '#000000',
+              // // The color of the text outline.
+              // auraColor: '#d799ae',
+              // // The transparency of the text.
+              // opacity: 0.8
+            },
+            vAxis: {title: 'Amount', format:'decimal'},
+            hAxis: {title: 'Category', format:'decimal'},
         };
+
+        // var options = {
+        //   // 'legend':'left',
+        //   'title':'Money Out Breakdown Individual Comparison',
+        //   // 'is3D':true,
+        //   // 'width':400,
+        //   'height':400
+        // };
 
         var chart = new google.charts.Bar(document.getElementById('money-out-brkdwn-bar'));
 

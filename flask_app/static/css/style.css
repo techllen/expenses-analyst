@@ -109,6 +109,9 @@ main{
     padding: 10px;
 }
 
+.money-out-brkdwn-bar{
+    height: 400px;
+}
 #money-in .row p,#money-out .row p
 {
     color:#153d77;
