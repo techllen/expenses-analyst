@@ -11,7 +11,10 @@ import pdfplumber,re
 
 
 # configuring path to save the file
-upload_folder = r"D:\Development\9.CODING_DOJO\6.Projects\expenses_analyst\project_repository\expenses-analyst\uploads"
+# upload_folder = r"D:\Development\9.CODING_DOJO\6.Projects\expenses_analyst\project_repository\expenses-analyst\uploads"
+
+upload_folder=r"D:\Development\9.CODING_DOJO\6.Projects\1.Solo Project\expenses_analyst\project_repository\expenses-analyst\uploads"
+
 # restriction uploads to pdfs
 allowed_extensions = {"pdf"}
 # below method checks if uploaded file has the allowed extension

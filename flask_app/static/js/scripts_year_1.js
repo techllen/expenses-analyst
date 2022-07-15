@@ -40,7 +40,7 @@ function getCategories(year){
 
 getCategories(currentYear);
 
-console.log(categoriesLabelsAndTotalBar)
+// console.log(categoriesLabelsAndTotalBar)
 
 
 // MONEY OUT BREAKDOWN BAR GRAPH
